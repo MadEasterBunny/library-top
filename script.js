@@ -1,3 +1,4 @@
+const dialog = document.querySelector("dialog")
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -32,6 +33,28 @@ const renderLibrary = () => {
     });
 }
 
+const clearNewBookForm = () => {
+    const textNumEl = document.querySelectorAll("input:not([type='checkbox'])");
+    const checkboxEl = document.querySelector("#read");
+
+    textNumEl.forEach(el => {
+        el.value = "";
+    });
+
+    if(checkboxEl.checked) {
+        checkboxEl.checked = false
+    }
+}
+
+document.querySelector("#new-book").addEventListener("click", () => {
+    dialog.showModal();
+});
+
+document.querySelector("#close").addEventListener("click", () => {
+    clearNewBookForm();
+    dialog.close();
+});
+
 document.querySelector("#submit").addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -48,4 +71,6 @@ document.querySelector("#submit").addEventListener('click', (e) => {
     }
 
     addBookToLibrary(title, author, pages, read);
+    clearNewBookForm();
+    dialog.close();
 });

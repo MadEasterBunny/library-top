@@ -7,9 +7,13 @@
     <title>Library</title>
 </head>
 <body>
+    <div>
+        <h1>Library</h1>
+        <button id="new-book">New Book</button>
+    </div>
     <div class="container"></div>
-    <div class="form-container">
-        <form action="#">
+    <dialog>
+        <form action="#" method="dialog">
             <div>
                 <label for="title">Book Title:</label>
                 <input type="text" id="title" name="title" placeholder="The Hobbit">
@@ -30,9 +34,10 @@
             </div>
             <div>
                 <button type="button" id="submit">Submit</button>
+                <button type="button" id="close">Close</button>
             </div>
         </form>
-    </div>
+    </dialog>
     <script src="script.js"></script>
 </body>
 </html>
