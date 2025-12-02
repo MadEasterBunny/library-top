@@ -1,4 +1,3 @@
-const dialog = document.querySelector("dialog")
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -28,49 +27,65 @@ const renderLibrary = () => {
         <h3>Title: ${book.title}</h3>
         <p>Author: ${book.author}</p>
         <p>Pages: ${book.pages}</p>
-        <p>${book.read}</p>`;
+        <p>${book.read}</p>
+        <button class="remove">Remove</button>`;
         container.appendChild(card);
     });
+
+    addCardEvents();
 }
 
-const clearNewBookForm = () => {
-    const textNumEl = document.querySelectorAll("input:not([type='checkbox'])");
-    const checkboxEl = document.querySelector("#read");
-
-    textNumEl.forEach(el => {
-        el.value = "";
-    });
-
-    if(checkboxEl.checked) {
-        checkboxEl.checked = false
+const removeBook = (id) => {
+    const index = myLibrary.find(book => book.id === id);
+    if(index !== -1) {
+        myLibrary.splice(index, 1);
+        renderLibrary();
+        console.log(myLibrary);
     }
 }
 
-document.querySelector("#new-book").addEventListener("click", () => {
-    dialog.showModal();
+const addCardEvents = () => {
+    const removeBtns = document.querySelectorAll(".remove")
+    
+    removeBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            console.log("Clicked");
+            const id = btn.parentElement.dataset.id;
+            removeBook(id)
+        })
+    })
+}
+
+const events = {
+    newBookBtn: document.querySelector("#new-book"),
+    dialog: document.querySelector("dialog"),
+    form: document.querySelector("form"),
+    submitFormBtn: document.querySelector("#submit"),
+    closeDialogBtn: document.querySelector("#close"),
+}
+
+events.newBookBtn.addEventListener("click", () => {
+    events.dialog.showModal();
 });
 
-document.querySelector("#close").addEventListener("click", () => {
-    clearNewBookForm();
-    dialog.close();
+events.closeDialogBtn.addEventListener("click", () => {
+    events.form.reset();
+    events.dialog.close();
 });
 
-document.querySelector("#submit").addEventListener('click', (e) => {
+events.submitFormBtn.addEventListener('click', (e) => {
     e.preventDefault();
-
-    const form = document.querySelector("form");
-
-    const title = form.elements.title.value;
-    const author = form.elements.author.value;
-    const pages = form.elements.pages.value;
+    const title = events.form.elements.title.value;
+    const author = events.form.elements.author.value;
+    const pages = events.form.elements.pages.value;
     let read = "";
-    if(form.elements.read.checked) {
+    if(events.form.elements.read.checked) {
         read = "Read"
     } else {
         read = "Not read"
     }
 
     addBookToLibrary(title, author, pages, read);
-    clearNewBookForm();
-    dialog.close();
+    events.form.reset();
+    events.dialog.close();
 });
