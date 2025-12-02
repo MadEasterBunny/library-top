@@ -1,31 +1,38 @@
-const container = document.querySelector(".container");
-const formContainer = document.querySelector(".form-container");
-const submit = document.querySelector("#submit");
-
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function() {
-    return `${title} by ${author}, ${pages} pages, ${read}`
-  }
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 }
 
 const addBookToLibrary = (title, author, pages, read) => {
-    myLibrary.push(new Book(title, author, pages, read));
+    const newBook = new Book(title, author, pages, read)
+    myLibrary.push(newBook);
+    renderLibrary();
+    console.log(myLibrary);
+}
+
+const renderLibrary = () => {
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
 
     myLibrary.map(book => {
-        const text = document.createElement("p");
-        text.textContent = `${book.title} by ${book.author} has ${book.pages} pages, ${book.read}`;
-    
-        container.appendChild(text);
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.id = book.id;
+        card.innerHTML = `
+        <h3>Title: ${book.title}</h3>
+        <p>Author: ${book.author}</p>
+        <p>Pages: ${book.pages}</p>
+        <p>${book.read}</p>`;
+        container.appendChild(card);
     });
 }
 
-submit.addEventListener('click', (e) => {
+document.querySelector("#submit").addEventListener('click', (e) => {
     e.preventDefault();
 
     const form = document.querySelector("form");
@@ -35,9 +42,9 @@ submit.addEventListener('click', (e) => {
     const pages = form.elements.pages.value;
     let read = "";
     if(form.elements.read.checked) {
-        read = "has been read"
+        read = "Read"
     } else {
-        read = "has not been read"
+        read = "Not read"
     }
 
     addBookToLibrary(title, author, pages, read);
