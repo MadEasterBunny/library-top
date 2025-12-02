@@ -1,11 +1,4 @@
-const myLibrary = [
-    {
-        title: "The Hobbit",
-        author: "J.R.R. Tolkien",
-        pages: 295,
-        read: true,
-    }
-];
+const myLibrary = [];
 
 function Book(title, author, pages, read) {
     this.id = crypto.randomUUID();
@@ -26,7 +19,7 @@ const addBookToLibrary = (title, author, pages, read) => {
 }
 
 const renderLibrary = () => {
-    const container = document.querySelector(".container");
+    const container = document.querySelector("#library");
     container.innerHTML = "";
 
     myLibrary.map(book => {
@@ -34,12 +27,14 @@ const renderLibrary = () => {
         card.classList.add("card");
         card.dataset.id = book.id;
         card.innerHTML = `
-        <h3>Title: ${book.title}</h3>
-        <p>Author: ${book.author}</p>
-        <p>Pages: ${book.pages}</p>
-        <p>${book.read ? "Read" : "Not read"}</p>
+        <h3 class="book-title">${book.title}</h3>
+        <p class="book-author">${book.author}</p>
+        <p class="book-pages">${book.pages} pages</p>
+        <p class="read-status">${book.read ? "Read" : "Not read"}</p>
+        <div class="card-btns">
         <button class="toggleRead">Toggle Read</button>
-        <button class="remove">Remove</button>`;
+        <button class="remove">Remove</button>
+        </div>`;
         container.appendChild(card);
     });
 
@@ -68,14 +63,14 @@ const addCardEvents = () => {
 
     toggleReadBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            const id = btn.parentElement.dataset.id;
+            const id = btn.parentElement.parentElement.dataset.id;
             toggleBookStatus(id);
         })
     })
     
     removeBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            const id = btn.parentElement.dataset.id;
+            const id = btn.parentElement.parentElement.dataset.id;
             removeBook(id)
         })
     })
@@ -110,4 +105,7 @@ events.submitFormBtn.addEventListener('click', (e) => {
     events.dialog.close();
 });
 
-renderLibrary();
+addBookToLibrary("1984", "George Orwell", 328, false);
+addBookToLibrary("Pride and Prejudice", "Jane Austen", 398, false);
+addBookToLibrary("Fahrenheit 451", "Ray Bradbury", 208, false);
+addBookToLibrary("The Alchemist", "Paulo Coelho", 197, false);
