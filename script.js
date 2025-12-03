@@ -27,12 +27,15 @@ const renderLibrary = () => {
         card.classList.add("card");
         card.dataset.id = book.id;
         card.innerHTML = `
+        <div class="book-title-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>book</title><path d="M18,22A2,2 0 0,0 20,20V4C20,2.89 19.1,2 18,2H12V9L9.5,7.5L7,9V2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18Z" /></svg>
         <h3 class="book-title">${book.title}</h3>
-        <p class="book-author">${book.author}</p>
+        </div>
+        <p class="book-author">by ${book.author}</p>
         <p class="book-pages">${book.pages} pages</p>
-        <p class="read-status">${book.read ? "Read" : "Not read"}</p>
+        <p class="read-status ${book.read ? "read" : "unread"}">${book.read ? "Read" : "Unread"}</p>
         <div class="card-btns">
-        <button class="toggleRead">Toggle Read</button>
+        <button class="toggleRead ${book.read ? "read" : "unread"}">${book.read ? "Mark as Unread" : "Mark as Read"}</button>
         <button class="remove">Remove</button>
         </div>`;
         container.appendChild(card);

@@ -5,6 +5,13 @@
 
 :root {
     --white-bg: #fff;
+    --gray: #6b6b6b;
+    --add-book-text: #00028b;
+    --add-book-bg: #aceeff;
+    --read-text: #00028b;
+    --read-bg: #73e3ff;
+    --unread-text: #1d1d1d;
+    --unread-bg: #bdbdbd;
 }
 
 *, *::before, *::after {
@@ -53,51 +60,167 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
+button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
 header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    background-color: var(--white-bg);
-    padding: 15px 0;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--white-bg);
+  padding: 15px 0;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
-header .logo {
-    display: flex;
-    gap: 10px
+.logo {
+  display: flex;
+  gap: 10px
 }
 
-header .logo h1 {
-    font-size: clamp(20px, 2em, calc(100% + 1.5vw));
+.logo h1 {
+  font-size: clamp(20px, 2em, calc(100% + 1.5vw));
 }
 
-header .logo svg {
-    width: 2rem;
+.logo svg {
+  width: 2rem;
+}
+
+#new-book {
+  color: var(--add-book-text);
+  background-color: var(--add-book-bg);
+  border: none;
+  border-radius: 15px;
 }
 
 .container {
-    padding: 15px;
+  padding: 15px;
 }
 
 #library {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--white-bg);
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background-color: var(--white-bg);
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+.card p {
+  font-size: clamp(12px, 0.85rem, 1rem);
+}
+
+.book-title-container {
+  display: flex;
+  gap: 5px;
+  color: var(--gray);
+}
+
+.book-title-container svg {
+  width: 28px;
+  fill: var(--gray);
+}
+
+.book-author {
+  color: #2023ff;
+}
+
+.read-status {
+  width: fit-content;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 25px;
+}
+
+.read-status.read {
+  color: var(--read-text);
+  background-color: var(--read-bg);
+}
+
+.read-status.unread {
+  color: var(--unread-text);
+  background-color: var(--unread-bg);
 }
 
 .card-btns {
-    display: flex;
-    gap: 10px;
-    align-self: center;
-    margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  align-self: center;
+  margin-top: 10px;
+}
+
+.card-btns button {
+  color: #fff;
+  border: none;
+}
+
+.card-btns button.toggleRead.read {
+  background-color: #898989;
+}
+
+.card-btns button.toggleRead.unread {
+  background-color: #009fc7;
+}
+
+.card-btns button.remove {
+  background-color: #f52323;
+}
+
+dialog {
+  border: none;
+  border-radius: 15px;
+}
+
+form {
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form h2 {
+  color: var(--read-text);
+  text-align: center;
+}
+
+form div:not(:last-child) {
+  display: flex;
+  flex-direction: column;
+}
+
+form div:last-child {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+form input {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#submit {
+  color: var(--add-book-text);
+  background-color: var(--add-book-bg);
+}
+
+#close {
+  background-color: #e3e3e3;
 }
