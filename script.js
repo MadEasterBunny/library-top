@@ -83,7 +83,6 @@ const events = {
     newBookBtn: document.querySelector("#new-book"),
     dialog: document.querySelector("dialog"),
     form: document.querySelector("form"),
-    submitFormBtn: document.querySelector("#submit"),
     closeDialogBtn: document.querySelector("#close"),
 }
 
@@ -92,11 +91,11 @@ events.newBookBtn.addEventListener("click", () => {
 });
 
 events.closeDialogBtn.addEventListener("click", () => {
-    events.form.reset();
     events.dialog.close();
+    events.form.reset();
 });
 
-events.submitFormBtn.addEventListener('click', (e) => {
+events.form.addEventListener('submit', (e) => {
     e.preventDefault();
     const title = events.form.elements.title.value;
     const author = events.form.elements.author.value;
@@ -104,8 +103,8 @@ events.submitFormBtn.addEventListener('click', (e) => {
     let read = events.form.elements.read.checked ? true : false;
 
     addBookToLibrary(title, author, pages, read);
-    events.form.reset();
     events.dialog.close();
+    events.form.reset();
 });
 
 addBookToLibrary("1984", "George Orwell", 328, false);
