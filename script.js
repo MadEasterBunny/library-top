@@ -53,7 +53,7 @@ const toggleBookStatus = (id) => {
 }
 
 const removeBook = (id) => {
-    const index = myLibrary.find(book => book.id === id);
+    const index = myLibrary.findIndex(book => book.id === id);
     if(index !== -1) {
         myLibrary.splice(index, 1);
         renderLibrary();
@@ -74,7 +74,7 @@ const addCardEvents = () => {
     removeBtns.forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.parentElement.parentElement.dataset.id;
-            removeBook(id)
+            removeBook(id);
         })
     })
 }
