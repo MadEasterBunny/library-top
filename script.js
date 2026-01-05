@@ -99,14 +99,26 @@ events.closeDialogBtn.addEventListener("click", () => {
 
 events.form.addEventListener('submit', (e) => {
     e.preventDefault();
+
     const title = events.form.elements.title.value;
     const author = events.form.elements.author.value;
     const pages = events.form.elements.pages.value;
     let read = events.form.elements.read.checked ? true : false;
-
-    addBookToLibrary(title, author, pages, read);
-    events.dialog.close();
-    events.form.reset();
+    
+    if(title.trim() === "") {
+        events.form.elements.title.setCustomValidity("The title cannot be blank!");
+        events.form.elements.title.reportValidity();
+    } else if(author.trim() === "") {
+        events.form.elements.author.setCustomValidity("The author name cannot be blank!");
+        events.form.elements.author.reportValidity();
+    } else if(pages.trim() === "") {
+        events.form.elements.pages.setCustomValidity("The pages cannot be blank!");
+        events.form.elements.pages.reportValidity();
+    } else {
+        addBookToLibrary(title, author, pages, read);
+        events.dialog.close();
+        events.form.reset();
+    }
 });
 
 addBookToLibrary("1984", "George Orwell", 328, false);
